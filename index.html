@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desktop Assistant</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Desktop Assistant</h1>
+    </header>
+    <main>
+        <section id="controls">
+            <button onclick="sendCommand('time')">Get Time</button>
+            <button onclick="sendCommand('date')">Get Date</button>
+            <button onclick="sendCommand('who are you')">Who Are You?</button>
+            <button onclick="sendCommand('how are you')">How Are You?</button>
+            <button onclick="sendCommand('open youtube')">Open YouTube</button>
+            <button onclick="sendCommand('open google')">Open Google</button>
+            <button onclick="sendCommand('play music')">Play Music</button>
+        </section>
+        <section id="output">
+            <h2>Output</h2>
+            <p id="response"></p>
+        </section>
+    </main>
+    <footer>
+        <p>© 2024 Desktop Assistant. All rights reserved.</p>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>
