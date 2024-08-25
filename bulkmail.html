@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Send Bulk Email</title>
+    <style>
+        /* Import Google Fonts */
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+        /* Global Styles */
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #79e6fc, #96e6a1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Background with 3D Effect */
+        .background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.582), rgba(255, 255, 255, 0.2));
+            filter: blur(10px);
+            z-index: -1;
+        }
+
+        /* Form Container */
+        .form-container {
+            background: rgba(255, 255, 255, 0.641);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 600px;
+            position: relative;
+            z-index: 1;
+            animation: fadeIn 1s ease-out;
+        }
+
+        .form-container h2 {
+            margin-bottom: 30px;
+            font-size: 32px;
+            text-align: center;
+            color: #333;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 16px;
+            margin-bottom: 8px;
+            color: #555;
+        }
+
+        .form-group input[type="text"],
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-sizing: border-box;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            height: 120px;
+        }
+
+        .form-group input[type="text"]:focus,
+        .form-group textarea:focus {
+            border-color: #007BFF;
+            box-shadow: 0 0 8px rgba(0, 123, 255, 0.3);
+            outline: none;
+        }
+
+        .form-group input[type="submit"] {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            border: none;
+            border-radius: 8px;
+            background: linear-gradient(135deg, #007BFF, #0056b3);
+            color: white;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.3s ease;
+        }
+
+        .form-group input[type="submit"]:hover {
+            background: linear-gradient(135deg, #0056b3, #003d7a);
+            transform: scale(1.05);
+        }
+
+        .response-message {
+            margin-top: 20px;
+            font-size: 16px;
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+            transition: opacity 0.5s ease;
+        }
+
+        .success-message {
+            background-color: #28a745;
+            color: white;
+        }
+
+        .error-message {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Box-shadow and Hover Effect for Inputs */
+        .form-group input[type="text"]:focus,
+        .form-group textarea:focus {
+            border-color: #007BFF;
+            box-shadow: 0 0 8px rgba(0, 123, 255, 0.3);
+            outline: none;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="background"></div>
+
+    <div class="form-container">
+        <h2>Send Bulk Email</h2>
+        <form id="email-form">
+            <div class="form-group">
+                <label for="sender">From:</label>
+                <input type="text" id="sender" name="sender" required>
+            </div>
+            <div class="form-group">
+                <label for="recipients">To (comma-separated):</label>
+                <input type="text" id="recipients" name="recipients" required>
+            </div>
+            <div class="form-group">
+                <label for="subject">Subject:</label>
+                <input type="text" id="subject" name="subject" required>
+            </div>
+            <div class="form-group">
+                <label for="body">Message:</label>
+                <textarea id="body" name="body" required></textarea>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Send Emails">
+            </div>
+            <div id="response-message"></div>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('email-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const sender = document.getElementById('sender').value;
+            const recipients = document.getElementById('recipients').value.split(',').map(email => email.trim());
+            const subject = document.getElementById('subject').value;
+            const body = document.getElementById('body').value;
+
+            fetch('http://127.0.0.1:5000/send-bulk-email', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    sender: sender,
+                    recipients: recipients,
+                    subject: subject,
+                    body: body
+                }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                const responseMessage = document.getElementById('response-message');
+                if (data.message) {
+                    responseMessage.className = 'response-message success-message';
+                    responseMessage.textContent = data.message;
+                } else {
+                    responseMessage.className = 'response-message error-message';
+                    responseMessage.textContent = data.error;
+                }
+            })
+            .catch((error) => {
+                const responseMessage = document.getElementById('response-message');
+                responseMessage.className = 'response-message error-message';
+                responseMessage.textContent = 'An error occurred while sending the email.';
+            });
+        });
+    </script>
+
+</body>
+</html>

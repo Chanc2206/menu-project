@@ -3,31 +3,99 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Desktop Assistant</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>menu page</title>
+    <style>
+        body {
+            background: radial-gradient(circle, #000000, #003300, #000000);
+            background-size: 200% 200%;
+            animation: gradient 20s linear infinite;
+            font-family: 'Courier New', Courier, monospace;
+            color: #00ff00; /* Green text color for hacker theme */
+        }
+
+        @keyframes gradient {
+            0% {
+                background-position: 0% 0%;
+            }
+            50% {
+                background-position: 100% 100%;
+            }
+            100% {
+                background-position: 0% 0%;
+            }
+        }
+
+        .button-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            grid-gap: 15px;
+            padding: 20px;
+        }
+
+        .button {
+            background-color: #003300; /* Dark green background */
+            color: #00ff00; /* Green text color */
+            padding: 15px;
+            border: 2px solid #00ff00; /* Green border */
+            border-radius: 8px;
+            font-size: 0.9em;
+            cursor: pointer;
+            text-align: center;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .button:hover {
+            background-color: #00ff00; /* Bright green background on hover */
+            color: #003300; /* Dark green text color on hover */
+            transform: scale(1.05); /* Slightly enlarge button on hover */
+        }
+
+        h1 {
+            text-align: center;
+            color: #00ff00; /* Green text color */
+            font-size: 2em;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        center {
+            display: block;
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <h1>Desktop Assistant</h1>
-    </header>
-    <main>
-        <section id="controls">
-            <button onclick="sendCommand('time')">Get Time</button>
-            <button onclick="sendCommand('date')">Get Date</button>
-            <button onclick="sendCommand('who are you')">Who Are You?</button>
-            <button onclick="sendCommand('how are you')">How Are You?</button>
-            <button onclick="sendCommand('open youtube')">Open YouTube</button>
-            <button onclick="sendCommand('open google')">Open Google</button>
-            <button onclick="sendCommand('play music')">Play Music</button>
-        </section>
-        <section id="output">
-            <h2>Output</h2>
-            <p id="response"></p>
-        </section>
-    </main>
-    <footer>
-        <p>© 2024 Desktop Assistant. All rights reserved.</p>
-    </footer>
-    <script src="script.js"></script>
+    <center>
+        <h1>Welcome to Heena's Menu</h1>
+    </center>
+    <div class="button-container">
+        <button class="button" onclick="window.location.href='geolocation.html'">Geolocation</button>
+        <button class="button" onclick="window.location.href='search.html'">Search Top 5</button>
+        <button class="button" onclick="window.location.href='liveinterpreter.html'">Live Html Interpreter</button>
+        <button class="button" onclick="window.location.href='pythonsms.html'">Send Sms</button>
+        <button class="button" onclick="window.location.href='bulk_email.html'">Bulk E-mail</button>
+        <button class="button" onclick="window.location.href='speechtotext.html'">Speech to Text</button>
+        <button class="button" onclick="window.location.href='gnome.html'">Gnome</button>
+        <button class="button" onclick="window.location.href='linux.html'">Linux Terminal</button>
+        <button class="button" onclick="window.location.href='cam_live.html'">Camera Live</button>
+        <button class="button" onclick="window.location.href='capture.html'">Capture Image</button>
+        <button class="button" onclick="window.location.href='draganddrop.html'">Drag and Drop</button>
+        <button class="button" onclick="window.location.href='recording.html'">Live Recording</button>
+        <button class="button" onclick="window.location.href='chatbot.html'">AI Bot</button>
+        <button class="button" onclick="window.location.href='lwcmd.html'">Command Excutor</button>
+        <button class="button" onclick="window.location.href='portfolio.html'">My Portfolio</button>
+        <button class="button" onclick="window.location.href='puzzle.html'">My puzzle</button>
+        <button class="button" onclick="window.location.href='upload_image.html'">My Image</button>
+        <button class="button" onclick="window.location.href='js_camera.html'">My Camera</button>
+        <button class="button" onclick="window.location.href='send_whatsapp.html'">Send Whatsapp</button>
+        <button class="button" onclick="window.location.href='voicetovoice.html'">Voice Recorder</button>
+        <button class="button" onclick="window.location.href='texttospeech.html'">Text to Speech</button>
+        <button class="button" onclick="window.location.href='boto3.html'">EC2 Instance</button>
+        <button class="button" onclick="window.location.href='socialmedia.html'">Social Media</button>
+        <button class="button" onclick="window.location.href='ec2.html'">Launch EC2 Instance</button>
+        <button class="button" onclick="window.location.href='snake.html'">Snake Game</button>
+        <button class="button" onclick="window.location.href='wikipedia.html'">Wikipedia Reader</button>
+        <button class="button" onclick="window.location.href='googleclone.html'">Google Search</button>
+        <button class="button" onclick="window.location.href='password_form.html'">Password Generator</button>
+    </div>
 </body>
 </html>

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GeoCoordinates Lookup</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(to right, #74ebd5, #acb6e5); /* Gradient Background */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .form-container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .form-container h2 {
+            margin-bottom: 20px;
+            font-size: 28px;
+            color: #333;
+            position: relative;
+            font-weight: bold;
+        }
+
+        .form-container h2::after {
+            content: '';
+            width: 50px;
+            height: 4px;
+            background-color: #74ebd5;
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .form-group input[type="text"] {
+            width: 100%;
+            padding: 12px 15px;
+            font-size: 16px;
+            border: 2px solid #74ebd5;
+            border-radius: 25px;
+            box-sizing: border-box;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input[type="text"]:focus {
+            border-color: #acb6e5;
+            box-shadow: 0 0 8px rgba(116, 235, 213, 0.5);
+        }
+
+        .form-group input[type="submit"] {
+            width: 100%;
+            padding: 12px 20px;
+            font-size: 18px;
+            border: none;
+            border-radius: 25px;
+            background: linear-gradient(to right, #74ebd5, #acb6e5);
+            color: white;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .form-group input[type="submit"]:hover {
+            background: linear-gradient(to right, #acb6e5, #74ebd5);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Extra styling for the page */
+        .form-container p {
+            font-size: 14px;
+            color: #999;
+            margin-top: 15px;
+        }
+
+        .form-container p a {
+            color: #74ebd5;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .form-container p a:hover {
+            color: #acb6e5;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="form-container">
+        <h2>Geo Coordinates Lookup</h2>
+        <form action="http://127.0.0.1:5000/geocoordinates" method="POST">
+            <div class="form-group">
+                <label for="location">Enter Location</label>
+                <input type="text" id="location" name="n" placeholder="e.g., New York, Paris">
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Get Coordinates">
+            </div>
+        </form>
+        
+    </div>
+
+</body>
+</html>

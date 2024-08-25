@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text to Speech Converter</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap">
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body {
+            font-family: 'Lato', sans-serif;
+            background: linear-gradient(135deg, #8e2de2, #4a00e0);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: #fff;
+        }
+
+        .container {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 40px;
+            border-radius: 15px;
+            text-align: center;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 20px 30px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .container:hover {
+            transform: scale(1.02);
+            box-shadow: 0 30px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 30px;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        textarea {
+            width: 100%;
+            height: 180px;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            outline: none;
+            resize: none;
+            background-color: rgba(255, 255, 255, 0.9);
+            color: #333;
+            margin-bottom: 20px;
+            box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        textarea:focus {
+            background-color: rgba(255, 255, 255, 1);
+            box-shadow: inset 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        button {
+            background: linear-gradient(135deg, #ff6b81, #f06595);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 50px;
+            box-shadow: 0 10px 20px rgba(255, 105, 135, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 30px rgba(255, 105, 135, 0.5);
+        }
+        
+        audio {
+            margin-top: 30px;
+            width: 100%;
+            border-radius: 10px;
+            outline: none;
+            transition: opacity 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        audio[src] {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+
+            textarea {
+                font-size: 1rem;
+            }
+
+            button {
+                padding: 12px 25px;
+                font-size: 1.1rem;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+
+    <h1>Text to Speech Converter</h1>
+    <textarea id="text-input" placeholder="Enter your text here..."></textarea>
+    <br>
+    <button id="convert-btn">Convert to Speech</button>
+    <br><br>
+    <audio id="audio-player" controls></audio>
+    </div>
+    
+    <script>
+        $(document).ready(function() {
+            $('#convert-btn').click(function() {
+                var text = $('#text-input').val();
+
+                if (text.trim() !== "") {
+                    $.ajax({
+                        url: '/text-to-speech',
+                        type: 'POST',
+                        contentType: 'application/json',
+                        data: JSON.stringify({ text: text }),
+                        success: function(response) {
+                            if (response.speech_url) {
+                                $('#audio-player').attr('src', response.speech_url).trigger('play');
+                            } else if (response.error) {
+                                alert("Error: " + response.error);
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            console.log("AJAX Error:", error);
+                            alert("An error occurred while processing the request.");
+                        }
+                    });
+                } else {
+                    alert("Please enter some text!");
+                }
+            });
+        });
+    </script>
+</body>
+</html>
